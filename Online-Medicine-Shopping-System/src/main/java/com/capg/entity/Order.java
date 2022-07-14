@@ -6,11 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "MedicineOrder")
@@ -23,8 +26,16 @@ public class Order {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate orderDate;
 	private double totalCost;
-	private long customerId;
-	private long medicineId;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id", referencedColumnName = "id")
+	@JsonManagedReference(value="customer-reference")
+	private Customer customer;
+
+	@ManyToOne
+	@JoinColumn(name = "medicine_id", referencedColumnName = "id")
+	@JsonManagedReference
+	private Medicine medicine;
 
 	// Getters and Setters
 	public long getId() {
@@ -51,20 +62,20 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	public long getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public long getMedicineId() {
-		return medicineId;
+	public Medicine getMedicine() {
+		return medicine;
 	}
 
-	public void setMedicineId(long medicineId) {
-		this.medicineId = medicineId;
+	public void setMedicine(Medicine medicine) {
+		this.medicine = medicine;
 	}
 
 }

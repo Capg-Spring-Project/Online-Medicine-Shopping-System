@@ -1,14 +1,19 @@
 package com.capg.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -16,13 +21,21 @@ public class Medicine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	//@NotNull(message = "Name may not be null")
+	// @NotNull(message = "Name may not be null")
 	private String name;
-	//@Min(1)
-	//@Max(50000)
+	// @Min(1)
+	// @Max(50000)
 	private double price;
 	private String companyName;
-	private String category;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
+	@JsonBackReference
+	private Category category;
+
+	@OneToMany(mappedBy = "medicine")
+	@JsonBackReference
+	private List<Order> orders;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -64,12 +77,20 @@ public class Medicine {
 		this.companyName = companyName;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public LocalDate getManufacturingDate() {

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Category;
 import com.capg.service.CategoryService;
-
+import com.capg.service.MedicineService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -24,6 +24,8 @@ import com.capg.service.CategoryService;
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private MedicineService medicineService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Category>> getAllCategories() {
@@ -46,5 +48,11 @@ public class CategoryController {
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
 		categoryService.deleteCategoryById(id);
+	}
+
+	@GetMapping("/of-medicine/{medicineId}")
+	public ResponseEntity<Category> getCategoryByMedicineId(@PathVariable int medicineId) {
+		Category category = medicineService.findMedicineById(medicineId).get().getCategory();
+		return ResponseEntity.ok(category);
 	}
 }

@@ -1,10 +1,15 @@
 package com.capg.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Customer {
@@ -16,6 +21,10 @@ public class Customer {
 	@Column(unique = true)
 	private String email;
 	private String password;
+
+	@OneToMany(mappedBy = "customer")
+	@JsonBackReference(value="customer-reference")
+	private List<Order> orders;
 
 	// Getters and Setters
 	public long getId() {
@@ -48,6 +57,14 @@ public class Customer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }
