@@ -15,36 +15,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Customer;
-import com.capg.service.MainService;
+import com.capg.service.CustomerService;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
 	@Autowired
-	private MainService mainService;
+	private CustomerService customerService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Customer>> getAllCustomers() {
-		List<Customer> list = mainService.getAllCustomers();
+		List<Customer> list = customerService.getAllCustomers();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Customer> findCustomerById(@PathVariable long id) {
-		Optional<Customer> customer = mainService.findCustomerById(id);
+		Optional<Customer> customer = customerService.findCustomerById(id);
 		return ResponseEntity.ok(customer.get());
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-		Customer savedCustomer = mainService.saveCustomer(customer);
+		Customer savedCustomer = customerService.saveCustomer(customer);
 		return ResponseEntity.ok(savedCustomer);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
-		mainService.deleteCustomerById(id);
+		customerService.deleteCustomerById(id);
 	}
 }
 

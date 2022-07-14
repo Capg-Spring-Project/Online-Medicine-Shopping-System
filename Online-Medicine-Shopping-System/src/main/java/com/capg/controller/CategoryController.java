@@ -15,35 +15,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Category;
-import com.capg.service.MainService;
+import com.capg.service.CategoryService;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
 	@Autowired
-	private MainService mainService;
+	private CategoryService categoryService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Category>> getAllCategories() {
-		List<Category> list = mainService.getAllCategories();
+		List<Category> list = categoryService.getAllCategories();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> findCategoryById(@PathVariable long id) {
-		Optional<Category> category = mainService.findCategoryById(id);
+		Optional<Category> category = categoryService.findCategoryById(id);
 		return ResponseEntity.ok(category.get());
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
-		Category savedCategory = mainService.saveCategory(category);
+		Category savedCategory = categoryService.saveCategory(category);
 		return ResponseEntity.ok(savedCategory);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
-		mainService.deleteCategoryById(id);
+		categoryService.deleteCategoryById(id);
 	}
 }

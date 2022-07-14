@@ -15,35 +15,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Order;
-import com.capg.service.MainService;
+import com.capg.service.OrderService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 	@Autowired
-	private MainService mainService;
+	private OrderService orderService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Order>> getAllOrders() {
-		List<Order> list = mainService.getAllOrders();
+		List<Order> list = orderService.getAllOrders();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Order> findOrderById(@PathVariable long id) {
-		Optional<Order> order = mainService.findOrderById(id);
+		Optional<Order> order = orderService.findOrderById(id);
 		return ResponseEntity.ok(order.get());
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
-		Order savedOrder = mainService.saveOrder(order);
+		Order savedOrder = orderService.saveOrder(order);
 		return ResponseEntity.ok(savedOrder);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
-		mainService.deleteOrderById(id);
+		orderService.deleteOrderById(id);
 	}
 }

@@ -16,8 +16,10 @@ public class Medicine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
+	//@NotNull(message = "Name may not be null")
 	private String name;
+	//@Min(1)
+	//@Max(50000)
 	private double price;
 	private String companyName;
 	private String category;
