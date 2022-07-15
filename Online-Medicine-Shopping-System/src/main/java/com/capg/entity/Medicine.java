@@ -110,5 +110,4 @@ public class Medicine {
 	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
-
 }
