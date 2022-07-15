@@ -20,7 +20,7 @@ import com.onlinemedicineshope.exception.AdminNotFoundException;
 import com.onlinemedicineshope.exception.InvalidCredentialsException;
 import com.onlinemedicineshope.service.AdminService;
 
-
+// test edit
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/admin")
