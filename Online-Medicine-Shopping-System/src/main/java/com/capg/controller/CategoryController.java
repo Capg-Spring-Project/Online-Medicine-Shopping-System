@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.entity.Category;
+import com.capg.entity.Medicine;
+import com.capg.exception.CategoryNotFoundException;
+import com.capg.exception.MedicineNotFoundException;
+import com.capg.exception.NoCategoryPresentException;
 import com.capg.service.CategoryService;
 import com.capg.service.MedicineService;
 
@@ -30,12 +34,18 @@ public class CategoryController {
 	@GetMapping("")
 	public ResponseEntity<List<Category>> getAllCategories() {
 		List<Category> list = categoryService.getAllCategories();
+		if(list.isEmpty()) {
+			throw new NoCategoryPresentException("There are no categories present in the database!");
+		}
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Category> findCategoryById(@PathVariable long id) {
 		Optional<Category> category = categoryService.findCategoryById(id);
+		if(category.isEmpty()) {
+			throw new CategoryNotFoundException("No Category found with the given id: " + id);
+		}
 		return ResponseEntity.ok(category.get());
 	}
 
@@ -47,12 +57,20 @@ public class CategoryController {
 
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
+		Optional<Category> category = categoryService.findCategoryById(id);
+		if(category.isEmpty()) {
+			throw new CategoryNotFoundException("No Category found with the given id: " + id);
+		}
 		categoryService.deleteCategoryById(id);
 	}
 
 	@GetMapping("/of-medicine/{medicineId}")
 	public ResponseEntity<Category> getCategoryByMedicineId(@PathVariable int medicineId) {
-		Category category = medicineService.findMedicineById(medicineId).get().getCategory();
+		Optional<Medicine> medicine = medicineService.findMedicineById(medicineId);
+		if(medicine.isEmpty()) {
+			throw new MedicineNotFoundException("No Medicine found with the given id: " + medicineId);
+		}
+		Category category = medicine.get().getCategory();
 		return ResponseEntity.ok(category);
 	}
 }

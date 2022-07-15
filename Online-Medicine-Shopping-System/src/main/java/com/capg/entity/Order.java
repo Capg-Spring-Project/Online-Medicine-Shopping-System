@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "MedicineOrder")
@@ -29,12 +29,12 @@ public class Order {
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
-	@JsonManagedReference(value="customer-reference")
+	@JsonBackReference(value="orders-customer")
 	private Customer customer;
 
 	@ManyToOne
 	@JoinColumn(name = "medicine_id", referencedColumnName = "id")
-	@JsonManagedReference
+	@JsonBackReference(value="orders-medicine")
 	private Medicine medicine;
 
 	// Getters and Setters

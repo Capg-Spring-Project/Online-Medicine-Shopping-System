@@ -2,6 +2,7 @@ package com.capg.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Customer {
@@ -22,8 +23,8 @@ public class Customer {
 	private String email;
 	private String password;
 
-	@OneToMany(mappedBy = "customer")
-	@JsonBackReference(value="customer-reference")
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="orders-customer")
 	private List<Order> orders;
 
 	// Getters and Setters

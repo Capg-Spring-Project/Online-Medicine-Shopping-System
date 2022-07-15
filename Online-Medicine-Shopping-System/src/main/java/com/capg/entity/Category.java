@@ -2,6 +2,7 @@ package com.capg.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,8 @@ public class Category {
 
 	private String name;
 
-	@OneToMany(mappedBy = "category")
-	@JsonManagedReference
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "category-medicines")
 	private List<Medicine> medicines;
 
 	// Getters and Setters

@@ -3,6 +3,7 @@ package com.capg.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Medicine {
@@ -30,11 +32,11 @@ public class Medicine {
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
-	@JsonBackReference
+	@JsonBackReference(value = "category-medicines")
 	private Category category;
 
-	@OneToMany(mappedBy = "medicine")
-	@JsonBackReference
+	@OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)
+	@JsonManagedReference(value="orders-medicine")
 	private List<Order> orders;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
