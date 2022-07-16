@@ -29,6 +29,11 @@ import com.onlinemedicineshope.service.OrderService;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/medicine")
+//medicine controls from here
+//siddharth
+//shubham
+//avijit
+//adhi
 public class MedicineController {
 	@Autowired
 	private MedicineService medicineService;
