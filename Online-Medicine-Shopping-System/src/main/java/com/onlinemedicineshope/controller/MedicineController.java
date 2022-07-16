@@ -34,6 +34,8 @@ import com.onlinemedicineshope.service.OrderService;
 //shubham
 //avijit
 //adhi
+//adhrija
+
 public class MedicineController {
 	@Autowired
 	private MedicineService medicineService;
