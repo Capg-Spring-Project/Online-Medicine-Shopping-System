@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.onlinemedicineshop.entity.Admin;
-import com.onlinemedicineshop.exception.DuplicateEmailInsertionException;
 import com.onlinemedicineshop.repository.AdminRepository;
 import com.onlinemedicineshop.security.model.User;
 import com.onlinemedicineshop.service.AdminService;
@@ -31,11 +30,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Admin saveAdmin(Admin admin) {
 		admin.setPassword(new BCryptPasswordEncoder().encode(admin.getPassword()));
-		try {
-			return adminRepository.save(admin);
-		} catch (Exception e) {
-			throw new DuplicateEmailInsertionException("Email already registered!");
-		}
+		return adminRepository.save(admin);
 	}
 
 	@Override

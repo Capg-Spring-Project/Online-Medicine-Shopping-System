@@ -3,8 +3,6 @@ package com.onlinemedicineshop.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinemedicineshop.entity.Admin;
+import com.onlinemedicineshop.exception.AdminAlreadyRegisteredException;
 import com.onlinemedicineshop.exception.AdminNotFoundException;
 import com.onlinemedicineshop.service.AdminService;
 
@@ -44,7 +43,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) {
+	public ResponseEntity<Admin> saveAdmin(@RequestBody Admin admin) {
 //		if(!adminService.getAllAdmins().isEmpty()) {
 //			throw new AdminAlreadyRegisteredException("An Admin is already registered. Please login!");
 //		}

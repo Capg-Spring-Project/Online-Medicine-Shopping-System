@@ -8,17 +8,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.onlinemedicineshop.entity.Customer;
-import com.onlinemedicineshop.exception.DuplicateEmailInsertionException;
 import com.onlinemedicineshop.repository.CustomerRepository;
 import com.onlinemedicineshop.security.model.User;
 import com.onlinemedicineshop.service.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
+	
+	
 	@Autowired
 	CustomerRepository customerRepository;
-
+	
 	@Override
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
@@ -32,23 +32,19 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer saveCustomer(Customer customer) {
 		customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
-		try {
-			return customerRepository.save(customer);
-		} catch (Exception e) {
-			throw new DuplicateEmailInsertionException("Email already registered!");
-		}
+		return customerRepository.save(customer);
 	}
 
 	@Override
 	public void deleteCustomerById(long id) {
 		customerRepository.deleteById(id);
 	}
-
+	
 	@Override
 	public Optional<User> getCustomerAsUserByEmail(String email) {
 		return customerRepository.getCustomerAsUserByEmail(email);
 	}
-
+	
 	@Override
 	public Optional<Customer> getCustomerByEmail(String email) {
 		return customerRepository.getCustomerByEmail(email);

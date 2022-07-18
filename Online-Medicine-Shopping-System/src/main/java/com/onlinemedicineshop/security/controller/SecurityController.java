@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.onlinemedicineshop.exception.InvalidCredentialsException;
 import com.onlinemedicineshop.security.model.AuthenticationRequest;
 import com.onlinemedicineshop.security.model.AuthenticationResponse;
 import com.onlinemedicineshop.security.service.UserDetailsServiceImpl;
@@ -40,7 +39,7 @@ public class SecurityController {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtc, authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {
-			throw new InvalidCredentialsException("Entered Credentials are Incorrect!");
+			throw new Exception("Incorrect Username or Password", e);
 		}
 		final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(jwtc);
 		final String jwt = jwtUtil.generateToken(userDetails);
