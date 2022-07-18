@@ -3,6 +3,8 @@ package com.onlinemedicineshop.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +58,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
+	public ResponseEntity<Order> saveOrder(@Valid @RequestBody Order order) {
 		Order savedOrder = orderService.saveOrder(order);
 		return ResponseEntity.ok(savedOrder);
 	}

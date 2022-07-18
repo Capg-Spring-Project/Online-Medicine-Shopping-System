@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,12 +25,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Medicine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Min(1)
 	private long id;
+	
+	@NotNull(message = "Please enter a name")
 	private String name;
 	@Min(1)
-	@Max(500000)
+	@Max(999999)
 	private double price;
+	
+	@NotNull(message = "Please enter a name")
 	private String companyName;
 
 	@ManyToOne

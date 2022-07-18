@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Min(1)
 	private long id;
 
+	@NotNull(message = "Please enter a name")
 	private String name;
 
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

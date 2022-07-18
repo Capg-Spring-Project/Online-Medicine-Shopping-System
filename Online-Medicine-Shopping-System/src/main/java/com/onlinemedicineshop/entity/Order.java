@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,13 +22,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Min(1)
 	private long id;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate orderDate;
 	@Min(1)
+	@Max(999999)
 	private double totalCost;
 
 	@ManyToOne

@@ -3,6 +3,8 @@ package com.onlinemedicineshop.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -73,7 +75,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
+	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
 		Customer savedCustomer = customerService.saveCustomer(customer);
 		return ResponseEntity.ok(savedCustomer);
 	}

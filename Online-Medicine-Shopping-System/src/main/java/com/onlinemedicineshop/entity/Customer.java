@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -20,15 +20,16 @@ import com.onlinemedicineshop.security.model.User;
 public class Customer implements User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Min(1)
 	long id;
 
+	@NotNull(message = "Please enter a name")
 	private String name;
-	
+
 	@Column(unique = true)
-	@NotNull (message = "required")
+	@NotNull(message = "Please enter an email")
+	@Pattern(regexp = "^[a-z0-9_]+@[a-z0-9]+\\.[a-z]+$", message = "Please enter a valid email")
 	String email;
-	
+
 	@NotNull
 	@Size(min = 6, message = "Password must be atleast 6 characters long")
 	private String password;
