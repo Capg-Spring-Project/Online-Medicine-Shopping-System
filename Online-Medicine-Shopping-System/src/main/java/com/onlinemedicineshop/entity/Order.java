@@ -23,7 +23,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Min(1)
 	private long id;
-
+// date of order
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate orderDate;
