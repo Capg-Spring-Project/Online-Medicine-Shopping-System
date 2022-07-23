@@ -43,5 +43,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		user.orElseThrow(() -> new RuntimeException("user not found"));
 		return new UserDetailsImpl(user.get(), roles);
 	}
-
 }

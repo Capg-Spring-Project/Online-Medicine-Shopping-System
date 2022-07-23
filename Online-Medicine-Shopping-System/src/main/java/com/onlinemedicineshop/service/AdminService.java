@@ -18,4 +18,6 @@ public interface AdminService {
 	
 	public Optional<User> getAdminAsUserByEmail(String email);
 
+	public Optional<Admin> getAdminByEmail(String email);
+
 }

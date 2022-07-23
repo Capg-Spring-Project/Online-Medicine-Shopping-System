@@ -1,6 +1,7 @@
 package com.onlinemedicineshop.exception;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -85,7 +86,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.CONFLICT);
 	}
 	
-	// Common Exceptions
+	// Security Exceptions
 	@ExceptionHandler(InvalidIdException.class)
 	public ResponseEntity<ErrorDetails> handleInvalidIdException(InvalidIdException exception, WebRequest request) {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
@@ -98,17 +99,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 	
+	@ExceptionHandler(DuplicateEmailInsertionException.class)
+	public ResponseEntity<ErrorDetails> handleDuplicateEmailInsertionException(DuplicateEmailInsertionException exception, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNPROCESSABLE_ENTITY);
+	}
+	
 	@ExceptionHandler(UnauthorizedAccessException.class)
 	public ResponseEntity<ErrorDetails> handleUnauthorizedAccessException(UnauthorizedAccessException exception, WebRequest request) {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
-		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNPROCESSABLE_ENTITY);
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNAUTHORIZED);
 	}
 	
 	//Validation Exception Handler
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
-    	ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+    	String message = exception.getBindingResult().getAllErrors()
+    			.stream()
+    			.map(p -> p.getDefaultMessage())
+    			.collect(Collectors.joining(", "));
+    	ErrorDetails errorDetails = new ErrorDetails(new Date(), message, request.getDescription(false));
     	return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }

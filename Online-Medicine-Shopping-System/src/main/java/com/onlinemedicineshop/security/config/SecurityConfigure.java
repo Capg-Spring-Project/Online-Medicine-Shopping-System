@@ -29,7 +29,11 @@ public class SecurityConfigure {
             "/webjars/**",
             // -- Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            // -- Authentication
+            "/authentication/**",
+            // -- Commons
+            "/commons/**"
     };
 
 	@Autowired
@@ -49,10 +53,8 @@ public class SecurityConfigure {
 	@Bean
 	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-			.authorizeRequests().antMatchers("/authenticate").permitAll()
+			.authorizeRequests()
             .antMatchers(AUTH_WHITELIST).permitAll()
-            .antMatchers("/customer/save").permitAll()
-            .antMatchers("/admin/save").permitAll()
             .and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()

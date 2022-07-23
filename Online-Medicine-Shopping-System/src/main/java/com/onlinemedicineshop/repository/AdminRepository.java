@@ -11,5 +11,7 @@ import com.onlinemedicineshop.security.model.User;
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 	
 	Optional<User> getAdminAsUserByEmail(String email);
+
+	Optional<Admin> getAdminByEmail(String email);
 	
 }

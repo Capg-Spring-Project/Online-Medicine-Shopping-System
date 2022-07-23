@@ -3,6 +3,8 @@ package com.onlinemedicineshop.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -50,7 +52,7 @@ public class CategoryController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
+	public ResponseEntity<Category> saveCategory(@Valid @RequestBody Category category) {
 		Category savedCategory = categoryService.saveCategory(category);
 		return ResponseEntity.ok(savedCategory);
 	}
@@ -64,13 +66,4 @@ public class CategoryController {
 		categoryService.deleteCategoryById(id);
 	}
 
-	@GetMapping("/of-medicine/{medicineId}")
-	public ResponseEntity<Category> getCategoryByMedicineId(@PathVariable int medicineId) {
-		Optional<Medicine> medicine = medicineService.findMedicineById(medicineId);
-		if(medicine.isEmpty()) {
-			throw new MedicineNotFoundException("No Medicine found with the given id: " + medicineId);
-		}
-		Category category = medicine.get().getCategory();
-		return ResponseEntity.ok(category);
-	}
 }
