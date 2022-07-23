@@ -32,8 +32,8 @@ public class Order {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate orderDate;
 	@Min(1)
-	@Max(999999)
-	private double totalCost;
+	@Max(100)
+	private int quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -44,7 +44,7 @@ public class Order {
 	@JoinColumn(name = "medicine_id", referencedColumnName = "id")
 	@JsonBackReference(value="orders-medicine")
 	private Medicine medicine;
-
+	
 	// Getters and Setters
 	public long getId() {
 		return id;
@@ -62,12 +62,12 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-	public double getTotalCost() {
-		return totalCost;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setTotalCost(double totalCost) {
-		this.totalCost = totalCost;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public Customer getCustomer() {
@@ -85,5 +85,7 @@ public class Order {
 	public void setMedicine(Medicine medicine) {
 		this.medicine = medicine;
 	}
+
+	
 
 }
