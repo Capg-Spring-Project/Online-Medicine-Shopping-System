@@ -73,7 +73,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/{orderId}/assign-medicine/{medicineId}")
-	private ResponseEntity<Order> assignMedicineToOrder(@PathVariable int orderId, @PathVariable int medicineId) {
+	public ResponseEntity<Order> assignMedicineToOrder(@PathVariable int orderId, @PathVariable int medicineId) {
 		Optional<Order> orderOptional = orderService.findOrderById(orderId);
 		if (orderOptional.isEmpty()) {
 			throw new OrderNotFoundException("No order found with id: " + orderId);
@@ -89,7 +89,8 @@ public class OrderController {
 	}
 
 	@PostMapping("/{orderId}/assign-customer/{customerId}")
-	private ResponseEntity<Order> assignCustomerToOrder(@PathVariable int orderId, @PathVariable int customerId) {
+	public ResponseEntity<Order> assignCustomerToOrder(@PathVariable int orderId, @PathVariable int customerId) {
+		System.out.println(orderId + " " + customerId + "\n\n=============================");
 		Optional<Order> orderOptional = orderService.findOrderById(orderId);
 		if (orderOptional.isEmpty()) {
 			throw new OrderNotFoundException("No order found with id: " + orderId);

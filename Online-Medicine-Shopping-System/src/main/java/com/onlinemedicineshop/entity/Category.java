@@ -10,12 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 @Entity
-@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

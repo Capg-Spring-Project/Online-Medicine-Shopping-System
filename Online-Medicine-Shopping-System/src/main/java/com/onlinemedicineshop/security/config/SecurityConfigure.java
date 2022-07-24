@@ -58,11 +58,11 @@ public class SecurityConfigure {
             .and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.authorizeRequests()
-			.antMatchers("/hello").hasRole("USER")
-			.antMatchers("/**").hasAnyRole("ADMIN", "USER")
-//			.permitAll()
-			.anyRequest().authenticated();
+			.authorizeRequests().anyRequest().permitAll();
+//			.antMatchers("/hello").hasRole("USER")
+//			.antMatchers("/*").hasAnyRole("ADMIN", "USER")
+////			.permitAll()
+//			.anyRequest().authenticated();
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		
 		http.cors();

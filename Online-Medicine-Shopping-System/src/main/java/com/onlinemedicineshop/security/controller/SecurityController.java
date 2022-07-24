@@ -51,6 +51,7 @@ public class SecurityController {
 	
 	@PostMapping("/register-customer")
 	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
+		System.out.println("------------ customer = " + customer.getId());
 		Customer savedCustomer = customerService.saveCustomer(customer);
 		return ResponseEntity.ok(savedCustomer);
 	}

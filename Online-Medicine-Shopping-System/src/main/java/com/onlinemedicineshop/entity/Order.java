@@ -22,7 +22,6 @@ import com.voodoodyne.jackson.jsog.JSOGGenerator;
 @Entity
 @Table(name = "MedicineOrder")
 
-@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
