@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
@@ -19,6 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -52,8 +54,12 @@ public class Medicine {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate expiryDate;
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "cartMedicines")
+	private List<Customer> customers;
 
-	// Getters and Setters
+	//Getter and setters
 	public long getId() {
 		return id;
 	}
@@ -116,5 +122,13 @@ public class Medicine {
 
 	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
 	}
 }
