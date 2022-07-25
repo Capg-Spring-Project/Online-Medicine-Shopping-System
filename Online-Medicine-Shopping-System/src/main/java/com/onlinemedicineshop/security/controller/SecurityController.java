@@ -84,14 +84,14 @@ public class SecurityController {
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			jwt = authorizationHeader.substring(7);
 		} else {
-			throw new UnauthorizedAccessException("Access Denied!");
+			throw new UnauthorizedAccessException("Email not registered!");
 		}
 		String email = jwtUtil.extractEmail(jwt);
 		Admin admin = adminService.getAdminByEmail(email)
-				.orElseThrow(() -> new UnauthorizedAccessException("Access Denied!"));
+				.orElseThrow(() -> new UnauthorizedAccessException("Email not registered!"));
 		boolean isAdminValid = jwtUtil.validateToken(jwt, new UserDetailsImpl(admin, jwtUtil.extractRoles(jwt)));
 		if (!isAdminValid) {
-			throw new UnauthorizedAccessException("Access Denied!");
+			throw new UnauthorizedAccessException("Email not registered!");
 		}
 		return ResponseEntity.ok(admin);
 	}
@@ -102,14 +102,14 @@ public class SecurityController {
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
         } else {
-        	throw new UnauthorizedAccessException("Access Denied!");
+        	throw new UnauthorizedAccessException("Email not registered!");
         }
 		String email = jwtUtil.extractEmail(jwt);
 		Customer customer = customerService.getCustomerByEmail(email)
-				.orElseThrow(() -> new UnauthorizedAccessException("Access Denied!"));
+				.orElseThrow(() -> new UnauthorizedAccessException("Email not registered!"));
 		boolean isCustomerValid = jwtUtil.validateToken(jwt, new UserDetailsImpl(customer, jwtUtil.extractRoles(jwt)));
 		if(!isCustomerValid) {
-			throw new UnauthorizedAccessException("Access Denied!");
+			throw new UnauthorizedAccessException("Email not registered!");
 		}
 		return ResponseEntity.ok(customer);
 	}

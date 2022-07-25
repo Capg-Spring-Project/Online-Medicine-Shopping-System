@@ -27,8 +27,8 @@ public class Customer implements User {
 
 	@Column(unique = true)
 	@NotNull(message = "Please enter an email")
-	@Pattern(regexp = "^[a-z0-9_]+@[a-z0-9]+\\.[a-z]+$", message = "Please enter a valid email")
-	String email;
+	@Pattern(regexp = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$", message = "Please enter a valid email")
+	private String email;
 
 	@NotNull
 	@Size(min = 6, message = "Password must be atleast 6 characters long")
