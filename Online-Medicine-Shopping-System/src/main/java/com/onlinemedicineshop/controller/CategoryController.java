@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onlinemedicineshop.entity.Category;
-import com.onlinemedicineshop.entity.Medicine;
 import com.onlinemedicineshop.exception.CategoryNotFoundException;
-import com.onlinemedicineshop.exception.MedicineNotFoundException;
 import com.onlinemedicineshop.exception.NoCategoryPresentException;
 import com.onlinemedicineshop.service.CategoryService;
-import com.onlinemedicineshop.service.MedicineService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -30,8 +27,6 @@ import com.onlinemedicineshop.service.MedicineService;
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
-	@Autowired
-	private MedicineService medicineService;
 
 	@GetMapping("")
 	public ResponseEntity<List<Category>> getAllCategories() {

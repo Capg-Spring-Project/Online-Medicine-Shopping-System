@@ -23,7 +23,6 @@ import com.onlinemedicineshop.exception.OrderNotFoundException;
 import com.onlinemedicineshop.service.CustomerService;
 import com.onlinemedicineshop.service.MedicineService;
 import com.onlinemedicineshop.service.OrderService;
-import com.onlinemedicineshop.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -35,18 +34,6 @@ public class CustomerController {
 	private OrderService orderService;
 	@Autowired
 	private MedicineService medicineService;
-	@Autowired
-	private JwtUtil jwtUtil;
-
-	// TODO Remove this
-//	@GetMapping("")
-//	public ResponseEntity<List<Customer>> getAllCustomers() {
-//		List<Customer> list = customerService.getAllCustomers();
-//		if (list.isEmpty()) {
-//			throw new NoCustomerPresentException("There are no customers present in the database!");
-//		}
-//		return ResponseEntity.ok(list);
-//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Customer> findCustomerById(@PathVariable long id) {
@@ -56,12 +43,6 @@ public class CustomerController {
 		}
 		return ResponseEntity.ok(customer.get());
 	}
-
-//	@PostMapping("/save")
-//	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
-//		Customer savedCustomer = customerService.saveCustomer(customer);
-//		return ResponseEntity.ok(savedCustomer);
-//	}
 
 	@GetMapping("/of-order/{orderId}")
 	public ResponseEntity<Customer> getCustomerByOrderId(@PathVariable int orderId) {

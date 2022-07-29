@@ -59,10 +59,6 @@ public class SecurityConfigure {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests().anyRequest().permitAll();
-//			.antMatchers("/hello").hasRole("USER")
-//			.antMatchers("/*").hasAnyRole("ADMIN", "USER")
-////			.permitAll()
-//			.anyRequest().authenticated();
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 		
 		http.cors();
@@ -71,7 +67,7 @@ public class SecurityConfigure {
 	
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/v2/api-docs",
+        return web -> web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",

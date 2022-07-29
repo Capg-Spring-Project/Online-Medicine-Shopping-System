@@ -43,24 +43,14 @@ public class SecurityController {
 	@Autowired
 	private AdminService adminService;
 
-	// TODO delete this method (its for testing only)
-	@GetMapping("/hello")
-	public String hello() {
-		return "Hello World";
-	}
-	
 	@PostMapping("/register-customer")
 	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
-		System.out.println("------------ customer = " + customer.getId());
 		Customer savedCustomer = customerService.saveCustomer(customer);
 		return ResponseEntity.ok(savedCustomer);
 	}
 	
 	@PostMapping("/register-admin")
 	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) {
-//		if(!adminService.getAllAdmins().isEmpty()) {
-//			throw new AdminAlreadyRegisteredException("An Admin is already registered. Please login!");
-//		}
 		Admin savedAdmin = adminService.saveAdmin(admin);
 		return ResponseEntity.ok(savedAdmin);
 	}

@@ -19,7 +19,6 @@ import com.onlinemedicineshop.exception.CustomerNotFoundException;
 import com.onlinemedicineshop.exception.NoCustomerPresentException;
 import com.onlinemedicineshop.service.AdminService;
 import com.onlinemedicineshop.service.CustomerService;
-import com.onlinemedicineshop.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -29,8 +28,6 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private CustomerService customerService;
-	@Autowired
-	private JwtUtil jwtUtil;
 
 	@GetMapping("")
 	public ResponseEntity<List<Admin>> getAllAdmins() {
@@ -47,15 +44,6 @@ public class AdminController {
 		return ResponseEntity.ok(admin.get());
 	}
 
-//	@PostMapping("/save")
-//	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) {
-////		if(!adminService.getAllAdmins().isEmpty()) {
-////			throw new AdminAlreadyRegisteredException("An Admin is already registered. Please login!");
-////		}
-//		Admin savedAdmin = adminService.saveAdmin(admin);
-//		return ResponseEntity.ok(savedAdmin);
-//	}
-
 	@DeleteMapping("/delete/{id}")
 	public void deleteByid(@PathVariable long id) {
 		Optional<Admin> admin = adminService.findAdminById(id);
@@ -67,7 +55,6 @@ public class AdminController {
 	
 	@GetMapping("/customer")
 	public ResponseEntity<List<Customer>> getAllCustomers() {
-		System.out.println("inside -----------------------------------");
 		List<Customer> list = customerService.getAllCustomers();
 		if (list.isEmpty()) {
 			throw new NoCustomerPresentException("There are no customers present in the database!");
@@ -84,23 +71,6 @@ public class AdminController {
 		customerService.deleteCustomerById(id);
 	}
 
-//	// Authorization
-//	@GetMapping("/get-logged-in")
-//	public ResponseEntity<Admin> findAdminByUniqueId(@RequestHeader("Authorization") String authorizationHeader) {
-//		String jwt = null;
-//		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-//			jwt = authorizationHeader.substring(7);
-//		} else {
-//			throw new UnauthorizedAccessException("Access Denied!");
-//		}
-//		String email = jwtUtil.extractEmail(jwt);
-//		Admin admin = adminService.getAdminByEmail(email)
-//				.orElseThrow(() -> new UnauthorizedAccessException("Access Denied!"));
-//		boolean isAdminValid = jwtUtil.validateToken(jwt, new UserDetailsImpl(admin, jwtUtil.extractRoles(jwt)));
-//		if (!isAdminValid) {
-//			throw new UnauthorizedAccessException("Access Denied!");
-//		}
-//		return ResponseEntity.ok(admin);
-//	}
+//	
 
 }

@@ -73,7 +73,7 @@ public class MedicineController {
 	}
 
 	@PostMapping("/{medicineId}/assign-category/{categoryId}")
-	private ResponseEntity<Medicine> assignCategoryToMedicine(@PathVariable int medicineId,
+	public ResponseEntity<Medicine> assignCategoryToMedicine(@PathVariable int medicineId,
 			@PathVariable int categoryId) {
 		Optional<Medicine> medicineOptional = medicineService.findMedicineById(medicineId);
 		if (medicineOptional.isEmpty()) {
